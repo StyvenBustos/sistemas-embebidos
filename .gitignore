@@ -1,0 +1,93 @@
+//Declaracion de variables
+int sw1 = 1; //switch 1
+int sw2 = 2; //switch 2
+int sw3 = 3; //switch 3
+int ran = 0; int i; int j; int k;
+int vector[10] = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+void setup() {
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(sw1, INPUT);
+  pinMode(sw2, INPUT);
+  pinMode(sw3, INPUT);
+}
+
+void loop() {
+  // EN EL PRIMER ESTADO EL JUEGO DE LUCES NO REALIZA NINGUNA ACCION
+  if (digitalRead(sw1) == LOW && digitalRead(sw2) == LOW && digitalRead(sw3) == LOW) {
+  }
+  else
+    //EN EL TERCER ESTADO  LAS LUCES SE PRENDEN SOLO LAS PARES
+    if (digitalRead(sw1) == LOW && digitalRead(sw2) == HIGH && digitalRead(sw3) == HIGH) {
+      delay(250);
+      for (int i = 0; i <= 10; i = i + 2) {
+        digitalWrite(vector[i], HIGH);
+        delay(250);
+        digitalWrite(vector[i], LOW);
+        delay(250);
+      }
+    }
+    else
+      //EN EL SEGUNDO ESTADO LAS LUCES SE PRENDEN SOLO LAS IMPARES
+      if (digitalRead(sw1) == LOW && digitalRead(sw2) == HIGH && digitalRead(sw3) == LOW) {
+        delay(250);
+        for (int j = 1; j <= 10; j = j + 2) {
+          digitalWrite(vector[j], HIGH);
+          delay(250);
+          digitalWrite(vector[j], LOW);
+          delay(250);
+        }
+      }
+      else
+        ////EN EL CUARTO ESTADO  LAS LUCES SE PRENDEN ALEARTORIAMENTE
+        if (digitalRead(sw1) == HIGH && digitalRead(sw2) == LOW && digitalRead(sw3) == HIGH) {// ESTADO 4
+          delay(250);
+          ran = random(10);
+          digitalWrite(vector[ran], HIGH);
+          delay(250);
+          digitalWrite(vector[ran], LOW);
+          delay(250);
+        }
+        else
+          //EN EL QUINTO ESTADO LAS LUCES SE PRENDEN DESDE LOS EXTREMOS HASTA LLEGAR AL CENTRO
+          if (digitalRead(sw1) == HIGH && digitalRead(sw2) == HIGH && digitalRead(sw3) == LOW) {
+            delay(200);
+            for (i = 0, j = 10; i <= 5; i++, j--) {
+              digitalWrite(vector[i], HIGH), digitalWrite(vector[j], HIGH);
+              delay(250);
+            }
+            for (i = 5, j = 6; i >= 0; i--, j++) {
+              digitalWrite(vector[i], LOW), digitalWrite(vector[j], LOW);
+              delay(250);
+            }
+          }
+          else
+            //EN EL SEXTO ESTADO  EL JUEGO DE LUCES SE REPITE 5 VECES
+            if (digitalRead(sw1) == HIGH && digitalRead(sw2) == HIGH && digitalRead(sw3) == HIGH) {
+              delay(200);
+              for (j = 0; j <= 5; j++) {
+                for (int i = 0; i <= 10; i = i + 2) {
+                  digitalWrite(vector[i], HIGH);
+                  delay(250);
+                  digitalWrite(vector[i], LOW);
+                  delay(250);
+                }
+                for (int k = 1; k <= 10; k = k + 2) {
+                  digitalWrite(vector[k], HIGH);
+                  delay(250);
+                  digitalWrite(vector[k], LOW);
+                  delay(250);
+                }
+              }
+              i = 0;
+              k = 0;
+            } 
+}
