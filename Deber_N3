@@ -1,0 +1,69 @@
+// Codigo cx serial
+
+#include <LiquidCrystal.h>
+LiquidCrystal lcd (12, 11, 5, 4, 3, 2); 
+int cont = 0;
+String dato;
+int tam = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+lcd.begin(16, 2);
+  Serial.begin(9600);
+   lcd.clear();
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+if (Serial.available() > 0) {
+    dato = Serial.readString();
+    tam = dato.length();
+    Serial.println(dato);
+  }
+  for (; cont <= tam; cont++){ 
+    lcd.clear();
+    lcd.setCursor(cont, 0);
+    lcd.print(dato);
+    delay(250);
+  }
+  for (; cont <= tam; cont++) {
+    lcd.setCursor(cont, 0);
+    lcd.print(dato.substring(cont - 1));
+    delay(250);
+    lcd.clear();
+  }
+  cont = 0;
+  delay(250);
+
+}
+
+// Codigo de Contraseña
+
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+lcd.begin(16,2);
+lcd.clear();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+if (Serial.available() > 0) {
+  String password = Serial.readString();
+  lcd.setCursor(0,0);
+if(password.equals("styven"))
+{
+lcd.print("Clave Correcta");
+}
+else
+{
+  lcd.print("Clave Incorrecta");
+}
+}
+}
+
