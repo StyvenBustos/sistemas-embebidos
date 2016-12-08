@@ -1,0 +1,92 @@
+# include "matriz.h.h"
+int suma = 0;
+int multiplicacion = 1;
+int fila = 0;
+int columna = 0;
+int j = 0;
+int i = 0;
+float suma_1 = 0;
+float promedio;
+char dat;
+void setup() {
+  Serial.begin(9600);// abre el puerto serie,y le asigna la velocidad de 9600 bps
+  Serial.println("Menu");
+  Serial.println("Ver Matriz a");
+  Serial.println("Suma b");
+  Serial.println("Multiplicacion c");
+  Serial.println("Promedio d");
+}
+
+void loop() {
+  // lee el byte de entrada:
+  if (Serial.available() > 0) {
+    dat = Serial.read();
+    Serial.println("");
+    switch (dat) {
+      case 'a':
+        ver();
+        break;
+      case 'b':
+        suma_fila();
+        break;
+      case 'c':
+        multiplicacion_columna();
+        break;
+      case 'd':
+        promedio_total();
+        break;
+    }
+  }
+}
+void ver() {
+  // ver la matriz
+  for ( i = 0; i <= 19; i++) {
+    for (  j = 0; j <= 2; j++){
+    Serial.print("Esta en la posicion:");;Serial.print(i);Serial.print(j);Serial.println("");
+    Serial.println(matriz[i][j]);
+    Serial.println("");
+    delay(1500);
+    }
+  }
+}
+void suma_fila() {
+  //suma
+  for (int i = 0; i <= 19; i++) {
+    for ( int j = 0 ; j <= 2; j++) {
+      suma += matriz[i][j];
+    }
+    Serial.println("Suma");
+    Serial.println(suma);
+    Serial.println("");
+    delay(200);
+    suma = 0;
+  }
+}
+void multiplicacion_columna() {
+  //multiplicacion
+  for (i = 0; i <= 2; i++) {
+    for ( j = 0; j <= 19; j++) {
+      multiplicacion = multiplicacion * matriz[j][i];
+    }
+    Serial.println("Multiplicacion");
+    Serial.println(multiplicacion);
+    Serial.println(" ");
+    delay(200); 
+    multiplicacion = 1;
+    j = 0;
+  }
+}
+void promedio_total() {
+  // promedio
+  for (i = 0; i <= 2; i++) {
+    for (j = 0; j <= 19; j++) {
+      suma_1 = suma_1 + matriz[j][i];
+    }
+    j = 0;
+  }
+  promedio = suma_1 / 3;
+  Serial.println("Promedio");
+  Serial.println(promedio);
+  Serial.println(" ");
+  delay(200);
+}
